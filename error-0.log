@@ -1,0 +1,17 @@
+[32m[2016-07-24 02:23:13.140] [INFO] console - [39mload db connection.
+[32m[2016-07-24 02:23:13.142] [INFO] console - [39mdb config: {"host":"192.168.51.96","port":3306,"user":"tt2","password":"123456","database":"tt_glbl","charset":"UTF8_GENERAL_CI","debug":false}
+[32m[2016-07-24 02:23:13.143] [INFO] console - [39mpreview url :http://doc.tt139.com/preview/
+[32m[2016-07-24 02:23:13.143] [INFO] console - [39mconstants:{"host":"192.168.51.96","port":6379,"switch":1}
+[32m[2016-07-24 02:23:13.143] [INFO] console - [39mconstants:[object Object]
+[32m[2016-07-24 02:23:13.488] [INFO] console - [39mKurento Tutorial & Express server listening on port 8443
+[32m[2016-07-24 02:23:13.488] [INFO] console - [39mOpen https://localhost:8443 with a WebRTC capable browser
+[32m[2016-07-24 02:24:08.544] [INFO] console - [39mConnection: /#tIW3XOjWvmi9sJvtAAAA disconnect : client namespace disconnect
+[0mGET /54664 [33m404 [0m14.544 ms - 1365[0m
+[0mGET / [36m304 [0m4.836 ms - -[0m
+[0mGET /css/style.css [33m404 [0m2.568 ms - 1365[0m
+[0mGET /bower_components/kurento-utils/dist/kurento-utils.js [36m304 [0m5.283 ms - -[0m
+[0mGET /js/index.js [36m304 [0m0.538 ms - -[0m
+[0mGET /js/participants.js [36m304 [0m0.684 ms - -[0m
+[32m[2016-07-24 02:24:24.262] [INFO] console - [39mConnection: /#8r64wdk0RgdROljTAAAB disconnect : client namespace disconnect
+[0mGET /user/create_phone [33m404 [0m2.748 ms - 1365[0m
+[32m[2016-07-24 02:24:28.636] [INFO] console - [39merrorevent - undefined:undefined - Error: Redis connection to 192.168.51.96:6379 failed - connect ETIMEDOUT 192.168.51.96:6379

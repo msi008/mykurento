@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>手机验证</title>
+  </head>
+  <body>
+    <div class="phone" style="margin-top: 200px;margin-left: 500px">
+      <p>手机号：<input type="text" width="200" height="50"></input>
+      <input id="btn" type="button" value="发送验证码" onclick="start_sms_button()" /></p>
+      
+      <p>验证码：<input type="text" id="identify"value="请输入验证码"></input></p>
+    
+      <button id="logon" class="button logon-button" style="margin-top: 20px;margin-left: 120px"><a href="/user/sendemail">登录</a></button>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">  
+    var wait=60;
+    function time(o) {
+        if (wait == 0) {  
+            o.removeAttribute("disabled");
+            o.value="免费获取验证码";  
+            wait = 60;  
+        }else{  
+            o.setAttribute("disabled", true);  
+            o.value="重新发送(" + wait + ")";  
+            wait--;  
+            setTimeout(function() {  
+                time(o)  
+            },  
+            1000)  
+        }  
+        sendsms();
+    }  
+    function sendsms(){
+        var http = require('http');  
+        var qs = require('querystring');  
+        var data = {  
+            a: 123,  
+            time: new Date().getTime()};//这是需要提交的数据  
+        var content = qs.stringify(data);  
+        var options = {  
+            hostname: '127.0.0.1',  
+            port: 10086,  
+            path: '/pay/pay_callback?' + content,  
+            method: 'GET'  
+        };  
+        var req = http.request(options, function (res) {  
+            console.log('STATUS: ' + res.statusCode);  
+            console.log('HEADERS: ' + JSON.stringify(res.headers));  
+            res.setEncoding('utf8');  
+            res.on('data', function (chunk) {  
+                console.log('BODY: ' + chunk);  
+            });  
+        });  
+          
+        req.on('error', function (e) {  
+            console.log('problem with request: ' + e.message);  
+        });  
+          
+        req.end();  
+    }
+    
+    document.getElementById("btn").onclick=function(){time(this);}
+</script>  

@@ -1,0 +1,22 @@
+{
+  "apps" : [
+    {
+      "name": "mykurento",
+      "script": "server.js",
+      "args": "['--toto=heya coco', '-d', '1']",
+      "log_date_format": "YYYY-MM-DD HH:mm Z",
+      "ignoreWatch": [
+        "[\\/\\\\]\\./",
+        "node_modules"
+      ],
+      "watch": true,
+      "node_args": "--harmony",
+      "cwd": "",
+      "env": {
+        "NODE_ENV": "dev"
+      },
+      "error_file": "./logs/err.log",
+      "out_file": "./logs/out.log",
+      "merge_logs": true
+    }]
+}

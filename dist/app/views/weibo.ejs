@@ -1,0 +1,10 @@
+<% if (!user) { %>
+<h2>Welcome! Please log in.</h2>
+<a href="/weibo/login">Login with Weibo</a>
+<% } else { %>
+<h2>Hello, <%= user.displayName %>.</h2>
+<%= user.id %>
+<%= user._json.profile_image_url %>
+<%= user._json.description %>
+<%= user._json.location %>
+<% } %>

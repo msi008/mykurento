@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/css/style.css' />
+    <script src="bower_components/kurento-utils/dist/kurento-utils.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="js/index.js"></script>
+    <script src="js/participants.js"></script>
+	    
+    <script>
+		function join() {
+			var room = document.getElementById("room").value;
+			
+			location.assign(location.origin + '/' + room);
+		}
+	</script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div class="system-page no-scroll">
+      <section class="wrapper login-wrapper">
+        <div class="wrapper-inner login-wrapper-inner clearfix">            
+          <div class="jumbo-bucket-user no-avatar">
+            <h1 class="user-title"style="min-height:32px;">汉豆</h1>
+            <p class="user-desc">&nbsp;用网页记录和分享</p>
+          </div>
+          <div class="media-btn"><a href="/logon/wechatoauth" class="login-media green"><i class="s-icon s-weixin-w"></i>微信账号登录</a></div>
+          <div class="media-btn"><a href="/logon/weibo" class="login-media orange"><i class="s-icon s-weibo-w"></i>微博账号登录</a></div>
+          <div class="media-btn"><a href="/logon/qqoauth" class="login-media"><i class="s-icon s-qq-w"></i>QQ 账号登录</a></div>
+          <div class="media-btn"><a href="/user/create_phone" class="login-phone">使用手机号&nbsp;&nbsp;登录 / 注册</a></div>
+        </div>
+      </section>
+    </div>
+    <section>
+		<p>Create a room and invite people to join.</p>
+		<input id="room" type="text" name="room"></input>
+		<button id="join-button" class="button join-button" onclick="join()">Join</button>
+
+	</section>
+    
+  </body>
+</html>

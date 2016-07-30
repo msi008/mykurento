@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Kurento Room Demo</title>
+<meta name="author" content="kurento.org">
+<link rel="shortcut icon" href="img/kurento.png" type="image/png" />
+
+<!-- Bower JavaScript dependencies
+<script src="/js/kurento/adapter.js"></script>
+<script src="/js/kurento/jquery-2.1.1.min.js"></script>
+<script src="/js/kurento/jquery-ui.min.js"></script>
+<script src="/js/kurento/angular.min.js"></script>
+<script src="/js/kurento/angular-route.js"></script>
+<script src="/js/kurento/angular-fullscreen.js"></script>
+<script src="/js/kurento/velocity.js"></script>
+<script src="/js/kurento/moment-with-locales.min.js"></script>
+<script src="/js/kurento/lumx.js"></script>
+<script src="/js/kurento/EventEmitter.js"></script>
+
+ -->
+<!-- Kurento JavaScript dependencies 
+<script src="/js/kurento/kurento-utils.js"></script>
+<script src="/js/kurento/kurento-jsonrpc.js"></script>
+<script src="/js/kurento/KurentoRoom.js"></script>
+-->
+<!-- Custom JavaScript dependencies
+<script src="/js/kurento/app.js"></script>
+<script src="/js/kurento/callController.js"></script>
+<script src="/js/kurento/loginController.js"></script>
+<script src="/js/kurento/Participants.js"></script>
+<script src="/js/kurento/serviceParticipant.js"></script>
+
+ -->
+ 
+ 
+ 
+ 
+<!-- 默认加载的js文件 -->
+<script src="/js/widgets/kurento/demo/jquery-2.1.1.min.js"></script>
+<!-- Bower JavaScript dependencies-->
+<script src="/js/widgets/kurento/demo/adapter.js"></script>
+<script src="/js/widgets/kurento/demo/EventEmitter.js"></script>
+
+<!-- Kurento JavaScript dependencies -->
+<script src="/js/widgets/kurento/demo/kurento-utils.js"></script>
+<script src="/js/widgets/kurento/demo/kurento-jsonrpc.js"></script>
+<script src="/js/widgets/kurento/demo/KurentoRoom.js"></script>
+
+
+<script src="/js/widgets/kurento/demo/Participants.js"></script>
+<script src="/js/widgets/kurento/demo/serviceRoom.js"></script>
+</head>
+<body ng-app="login_kurento_room">
+<div id="login">
+	<div>Kurento Room</div>
+	userName：<input type="text" id="name">
+	roomName：<input type="text" id="roomName">
+	<button id="clear">Clear</button>
+	<button id="joinBtn">Join room</button>
+</div>
+    
+    
+
+<div id="room">
+	<div id="content">
+	    <div id="main-video"></div>
+	    <div id="room-name">房间名字</div>
+	    <div class="mb" align="right" style="margin: 1em; padding-bottom: 5px" id="buttonActions"> 
+	        <!--eliminado class action de los botones para cambiar el css-->
+	        <!--aumentado el tamaño de los iconos con css (room.css)-->
+	        <button lx-ripple ng-click="disableMainSpeaker()" id="buttonMainSpeaker" title="Main Speaker toggle">buttonMainSpeaker</button> <!--disable Main Speaker-->
+	        <button lx-ripple ng-click="onOffVolume()" id="buttonVolume" title="Audio toggle">buttonVolume</button> <!--mute audio-->
+	        <button lx-ripple ng-click="onOffVideocam()" id="buttonVideocam" title="Video toggle">buttonVideocam</button> <!--mute video-->
+	        <button lx-ripple ng-click="disconnectStream()" id="buttonDisconnect" title="Disconnect media stream">buttonDisconnect</button> <!--unpublish or unsubscribe media-->
+	        <button lx-ripple ng-click="showHat()" id="hatButton" title="Hat toggle">hatButton</button> <!--hat-->
+	        <button lx-ripple ng-click="" title="Desktop sharing">Desktop sharing</button> <!--compartir escritorio-->
+	        <button lx-ripple ng-click="leaveRoom()" id="buttonLeaveRoom" title="Leave room">buttonLeaveRoom</button> <!--colgar-->
+	        <button lx-ripple ng-click="goFullscreen()" title="Fullscreen">Fullscreen</button> <!--fullscreen-->
+	        <button lx-ripple ng-click="toggleChat()" title="Chat toggle">Chat toggle</button> <!--chat-->
+	    </div>
+	    <div id="participants"></div>
+	</div>
+	
+	<!--CHAT--> 
+    <div class="toggler" style="width: 20%;height: 100%;float: right" >
+        <div id="effect" style="display:none">
+            <!--head-->
+            <div>
+                <strong>Chat</strong>
+                <button class="btn btn--s btn--blue btn--icon mdi md-close" lx-ripple ng-click="toggleChat()" id="button"></button> <!--close-->
+            </div>
+
+            <div id="chatDiv" style="height: 30em;  overflow: scroll;">
+            	<div id="messages">
+	                <ul class="list" ><!--chat messages with scroll--></ul>
+                </div>
+            </div>
+
+            <!--message and button to send-->
+            <div>
+                <form>
+                    <lx-text-field label="Message">
+                        <input id="inputMessage" type="text" ng-model="message">
+                    </lx-text-field>
+                    <button type="submit" class="btn btn--m btn--green btn--raised" lx-ripple ng-click="sendMessage()">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 页面加载完要执行的文件 -->    
+<script src="/js/widgets/kurento/demo/loginController.js"></script>
+</body>
+</html>

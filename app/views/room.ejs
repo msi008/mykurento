@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="full-srceen bgcolor-gray" lang="en"><!--full-srceen-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>虎十哈塞北学堂</title>
+<link rel="stylesheet" type="text/css" media="all" href="css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/base.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/fonts.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/widget.css" />
+
+<!-- 加载socket.io -->
+<script type="text/javascript" src="js/libs/socket.io.js"></script>
+<!-- 默认加载的js文件 -->
+<script src="/js/libs/jquery-1.8.2.min.js"></script>
+<script src="/js/libs/adapter.js"></script>
+<script src="/js/libs/EventEmitter.js"></script>
+<script src="/js/libs/kurento-jsonrpc.js"></script>
+
+<!-- Kurento JavaScript dependencies -->
+<script src="/js/widgets/kurento/kurento-utils.js"></script>
+<script src="/js/widgets/kurento/KurentoRoom.js"></script>
+<script src="/js/widgets/kurento/Participants.js"></script>
+<script src="/js/widgets/kurento/serviceRoom.js"></script>
+
+<script type="text/javascript" src="js/libs/tool.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/fabric.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/utils.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/draw.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/pptcontroller.js"></script>
+
+</head>
+<body class="full-srceen"><!--full-srceen-->
+	<div class="container">
+		<div class="screen-content screen-full">
+			<header class="header">
+				<a href="#" class="logo" id="userid" title="虎十哈塞北学堂"><img src="img/logo.png">张老师正在授英语课</a>
+				<div class="user-option">
+					<span class="user-btn-fab" id="addperson"><i class="icons icons-addperson"></i></span>					
+					<span class="user-btn-fab"  id="ppt_list"><i class="icons icons-filepic"></i></span>
+					<span class="user-btn-fab"><i class="icons icons-brush"></i></span>					
+					<span class="user-btn-fab"><i class="icons icons-desktopmac"></i></span>
+					<span class="user-btn-fab"><i class="icons icons-setup"></i></span>
+					<span class="user-btn-fab"><i class="icons icons-share"></i></span>
+					<span class="user-btn-fab btn-active"><i class="icons icons-microphone"></i></span><!--btn-active-->
+					<span class="user-btn-fab"><i class="icons icons-leaveroom"></i></span>
+					<span class="btn-line"></span>
+					<span class="user-btn-fab"><i class="icons icons-close"></i></span>
+				</div>
+			</header>
+			<div class="content clearfix" id="content">
+				<!--视频大屏video-part+video-large/视频小屏video-part+two-person/three-person/four-person/复杂模式more-part+two-person/three-person/four-person-->
+				<!--<div class="addperson-box" style="display:block;">-->
+					<!--<p>目前你是唯一的参与者！</p>-->
+					<!--<span class="btn btn-green btn-middle">邀请其他人</span>-->
+				<!--</div>-->
+				<div class="note-box" style="display:none;">
+					<p>正在连接中，请稍后！</p-->
+					<p>参加会议人数已满，无法进入！<br />如有疑问，请与创建者联系！</p>
+					<p>网页无反应，请检查网络情况后重试！</p>
+					<span class="btn btn-green btn-middle">重新加载</span>
+					<p>您使用的链接无效，请输入正确的链接！</p>
+					<p>视频会议需要使用您的摄像头和麦克风！<br />请点击“允许”!</p>
+					<p>视频会议需要使用您的摄像头和麦克风！<br />请点击“共享选中的设备”!</p>
+				</div>
+				<div class="video-show">
+					<div class="video-list clearfix" id="participants">
+					</div>
+					<div id="main-video"></div>
+				</div>
+				<article class="smallvideo-box clearfix" id="smallvideo">
+																		
+				</article>
+				<div class="ppt-show" style="display:none;">					
+					<div id="ppt-box" class="ppt-box" onselectstart="return false;" unselectable="on">
+						<div class="ppt-toolbar">
+							<span class="ppt-name" node-type="ppt-name"></span>
+							<span id="canvas-toolbar">
+								<!--<span class="ppt-btn ppt-btn-active"><i class="icons icons-draft"></i></span>-->
+								<!--<span class="ppt-btn">-->
+									<!--<i class="icons icons-brush"></i><i class="icons icons-bottom-narrow"></i>-->
+									<!--<div class="popover ppt-popover" style="margin-left:-53px;">&lt;!&ndash;fade&ndash;&gt;-->
+										<!--<ul class="brush-list">-->
+											<!--<li class="brush-item thin active"></li>-->
+											<!--<li class="brush-item fine"></li>-->
+											<!--<li class="brush-item medium"></li>-->
+											<!--<li class="brush-item thick"></li>-->
+										<!--</ul>-->
+									<!--</div>-->
+								<!--</span>-->
+								<!--<span class="ppt-btn">-->
+									<!--<span class="ppt-color"></span><i class="icons icons-bottom-narrow"></i>-->
+									<!--<div class="popover fade ppt-popover" style="margin-left:-22px;">&lt;!&ndash;fade&ndash;&gt;-->
+										<!--<ul class="color-list">-->
+											<!--<li class="color-item black active"></li>-->
+											<!--<li class="color-item blue"></li>-->
+											<!--<li class="color-item red"></li>-->
+											<!--<li class="color-item green"></li>-->
+											<!--<li class="color-item orange"></li>-->
+											<!--<li class="color-item gray"></li>-->
+											<!--<li class="color-item purp</ul>le"></li>-->
+										<!--</ul>-->
+									<!--</div>-->
+								<!--</span>-->
+								<!--<span class="ppt-btn"><i class="icons icons-go-back"></i></span>-->
+								<!--<span class="ppt-btn"><i class="icons icons-clear"></i></span>-->
+							</span>
+							<span class="ppt-btn disabled" node-type="left" data-key="37"><i class="icons icons-prepage"></i></span>
+							<span class="ppt-text"><span node-type="ppt-curr-number">1</span>&nbsp;of&nbsp;<span node-type="ppt-sum-number">10</span></span>
+							<span class="ppt-btn" node-type="right" data-key="39"><i class="icons icons-nextpage"></i></span>
+							<span class="ppt-btn">关闭</span>
+						</div>
+						<div class="ppt-canvas" id="ppt_canvas"></div>
+						<div id="slides" class="ppt-slides"><img src="img/ppt-3.jpg" width="732" height="524"></div>
+					</div>					
+				</div>	
+				<div class="drawingboard" style="display:none;"><!--display:none;-->
+					画板区域
+					<div class="toolbar" style="display:none"><!--old-->
+						<div class="toolbar-inner">						
+							<div class="btn-tool clearfix">								
+								<button class="tool-item"><i class="icons icons-draft"></i></button>						
+								<button class="tool-item pen active">
+								</button>
+								<button class="tool-item eraser"></button>
+								<button class="tool-item shape">
+									<ul class="shape-list">
+										<li class="shape-item circle active"></li>
+										<li class="shape-item square"></li>
+										<li class="shape-item triangle"></li>
+										<li class="shape-item line"></li>
+									</ul>
+								</button>
+								<button class="tool-item text"></button>
+								<button class="tool-item eraser-all"></button>											
+							</div>
+							<div class="btn-color clearfix">
+								<button class="color-item black active"></button>
+								<button class="color-item blue"></button>
+								<button class="color-item red"></button>
+								<button class="color-item green"></button>
+								<button class="color-item orange"></button>		
+								<button class="color-item gray"></button>		
+								<button class="color-item purple"></button>								
+							</div>
+							<div class="btn-brush clearfix">
+								<button class="brush-item thin active"></button>
+								<button class="brush-item fine"></button>
+								<button class="brush-item medium"></button>
+								<button class="brush-item thick"></button>													
+							</div>
+						</div>						
+					</div>	
+					<div class="toolbar"  style="display:block"><!--new-->
+						<div class="toolbar-inner">						
+							<div class="btn-tool clearfix">
+								<button class="tool-item enlarge active"></button>
+								<button class="tool-item reduce"></button>
+								<button class="tool-item go-back"></button>
+								<button class="tool-item go-forward"></button>
+								<button class="tool-item"><i class="icons icons-draft"></i></button>
+								<button class="tool-item selector"></button-->
+								<button class="tool-item pen active">
+									<div class="pen-list">
+										<ul class="brush-list clearfix">
+											<li class="brush-item thin active"></li>
+											<li class="brush-item fine"></li>
+											<li class="brush-item medium"></li>
+											<li class="brush-item thick"></li>	
+										</ul>
+										<ul class="color-list clearfix">
+											<li class="color-item black active"></li>
+											<li class="color-item blue"></li>
+											<li class="color-item red"></li>
+											<li class="color-item green"></li>
+											<li class="color-item orange"></li>		
+											<li class="color-item gray"></li>		
+											<li class="color-item purple"></li>												
+										</ul>
+									</div>
+								</button>
+								<button class="tool-item eraser"></button>
+								<button class="tool-item shape">
+									<ul class="shape-list">
+										<li class="shape-item circle active"></li>
+										<li class="shape-item square"></li>
+										<li class="shape-item triangle"></li>
+										<li class="shape-item line"></li>
+									</ul>
+								</button>
+								<button class="tool-item text"></button>
+								<button class="tool-item eraser-all"></button>	
+								<button class="tool-item add-picture"></button>	
+								<button class="tool-item save"></button>								
+							</div>
+						</div>						
+					</div>	
+				</div>												
+			</div>
+		</div>
+	</div>
+
+	<div class="popover fade" node-type="ppt_list" style="top: 100px;display: none; position:fixed; width:250px;">
+		<div class="popover-inner">
+			<div class="file-box" id="container">
+				<div class="btn-upload" id="upload_ppt"><i class="icons icons-filepic"></i>上传附件</div>
+				<ul class="list-upload" node-type="up_list">
+					<li class="l-upload-box" node-type="upload_progress" style="display: none;">
+						<div class="uploadFeedback">
+							<div class="progressName clearfix">
+								<span class="name ellipsis-l1n">上传中...</span>
+								<span class="number">50%</span>
+							</div>
+							<div class="progressBar-wrap"><span class="progressBar" style="width:50%;"></span></div>
+						</div>
+					</li>
+					<% if(ppts.length > 0){
+					ppts.forEach(function(ppt){ %>
+					<li data-rid="<%=ppt.ppt_id%>" style="cursor: cell;"><img src="<%=ppt.cover_image%>"><p><%=ppt.ppt_name%></p></li>
+					<% 	})
+					}else{ %>
+					<li id="ppt_empty" style="cursor: cell;"><p style="text-align: center;">暂时没有课件</p></li>
+					<%}%>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="masker" class="masker masker--black"></div>
+<!-- 页面加载完要执行的文件 -->
+<script type="text/javascript" src="js/libs/plupload.full.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/upload_file.js"></script>
+<script type="text/javascript" src="js/widgets/ppt/ppt_list.js"></script>
+<script>
+	var ttttt;
+	var _roomId = "<%=roomId%>";
+	var _serverUrl = 'https://www.kurento.me/rs/';
+	var _scope = {};
+	var _ServiceRoom = new ServiceRoom();
+	var _ServiceParticipant = new Participants();
+	var _socketServer = 'wss://123.56.95.235:8443/room';
+	var iosocket = io.connect();
+	var roomid = room = 1001;
+	var usertype = "t";
+	var rid = "group2M00000DwKgzCVdPqsjx7X2HABvcIqt6Vgg19_M00_pptx";
+	var ppt_array = Array();
+	Tool.ajax("/loadppt",{rid:rid},function(res){
+		if(!!res && res.code == 1){
+			var data = res.data, ppt = data.data,name = data.name;
+			if(!!data){
+				var ppt_array = JSON.parse(ppt);
+				$(".ppt-show").pptController({rid:rid, pptdata : ppt_array, ppt_container : new Array(ppt_array.length), ppt_preview_container : new Array(ppt_array.length)});
+				$("#ppt_canvas").Draw({channel:'ppt',width:$("#ppt-box").width(), height:$("#ppt-box").height()});
+			}
+		}
+	}, function(e){
+		console.log(e);
+	});
+	//$(".ppt-show").pptController({rid:rid, pptdata : ppt_array, ppt_container : new Array(ppt_array.length), ppt_preview_container : new Array(ppt_array.length)});
+	//$("#ppt_canvas").Draw({width:$("#ppt-box").width(), height:$("#ppt-box").height()});
+	$("#ppt_list").on("click", function(){
+		if(!window.ob_ppt){
+			window.ob_ppt = $(this).pptlist();
+		}
+		ob_ppt.show();
+	});
+</script>
+<script type="text/javascript" src="/js/layout/item.js"></script>
+<script src="/js/widgets/kurento/room.js"></script>
+<!--script type="text/javascript" src="/js/layout/item.js"></script>
+<script type="text/javascript">
+		var ttttt = $("#content").LY({el:'#content', status:'1', streams:[]});
+</script-->
+</body>
+</html>
